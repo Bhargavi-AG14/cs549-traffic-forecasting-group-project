@@ -151,10 +151,15 @@ def prepare_data(data_dir: str | Path) -> dict[str, object]:
     processed = {}
     for split in ("train", "validation", "test"):
         part = raw[split]
+
+        # Preserve the original input values in mph
+        x_mph = part["X"].astype(np.float32, copy=True)
+
         x_imputed, missing = impute_history(part["X"], part["valid_mask"], scaler)
         x_scaled = scaler.transform(x_imputed)
         item = {
             "X": x_scaled.astype(np.float32),
+            "X_mph": x_mph,
             "valid_mask": part["valid_mask"],
             "timestamps": part["timestamps"],
             "sample_id": part["sample_id"],

@@ -17,6 +17,7 @@ def save_split(name):
 
     output = {
         "X": split["X"],
+        "X_mph": split["X_mph"],
         "valid_mask": split["valid_mask"],
         "timestamps": split["timestamps"],
         "sample_id": split["sample_id"],
